@@ -1,0 +1,11 @@
+bin/                       
+bin/*                      
+build/*                    
+build/                     
+dist/*                     
+*.class                    
+*.asv                      
+build/classes/*            
+build/classes/*.properties 
+/.gradle/                  
+*.lock		             
