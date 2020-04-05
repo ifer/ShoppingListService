@@ -8,5 +8,6 @@ public class ShoppingListConstants {
 	public static final String UserIdNotFound = "Δεν βρέθηκε χρήστης με id: " ;
 	public static final String PasswordEmpty = "Ο μυστικός κωδικός είναι κενός!";
 
+	public static final String CategoryIdNotFound = "Δεν βρέθηκε κατηγορία με id: " ;
 
 }
