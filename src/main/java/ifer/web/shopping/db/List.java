@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class List implements java.io.Serializable {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer lid;
 
 	@NotNull

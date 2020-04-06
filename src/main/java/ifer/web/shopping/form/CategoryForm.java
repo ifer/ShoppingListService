@@ -14,10 +14,17 @@ public class CategoryForm {
 		this.descr = descr;
 	}
 
+	
+	//Constructor based on Category
+	public CategoryForm (Category category) {
+		this(category.getCatid(),
+		     category.getDescr());
+	}
+
 	public Category toCategory () {
 		return (toCategory(null));
 	}
-	
+
 	public Category toCategory (Category category) {
 		if (category == null)
 			category = new Category();
