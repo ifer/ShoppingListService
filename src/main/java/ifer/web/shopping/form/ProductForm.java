@@ -29,7 +29,9 @@ public class ProductForm {
 		);
 	}
 	
-
+	public Product toProduct () {
+		return toProduct(null);
+	}
 
 	public Product toProduct (Product product) {
 		if (product == null) {

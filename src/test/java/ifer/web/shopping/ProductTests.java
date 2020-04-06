@@ -1,9 +1,11 @@
 package ifer.web.shopping;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +19,7 @@ import ifer.web.shopping.form.ProductForm;
 import ifer.web.shopping.repo.CategoryRepo;
 import ifer.web.shopping.repo.ProductRepo;
 import ifer.web.shopping.util.DataException;
-import ifer.web.shopping.repo.ProductRepo;
+import ifer.web.shopping.util.ShoppingListConstants;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -45,6 +47,28 @@ public class ProductTests {
 	@Test
 	public void addProductTest () {
 		ProductForm prodform = new ProductForm(null, "Καθαριστικό", 2);
+		try {
+			productRepo.addOrUpdateProduct(prodform);
+		} catch (DataException e) {
+				e.printStackTrace();
+		}
+		
+	}	
+
+	@Test
+	public void updateProductTest () {
+		Product product = null;
+		Optional<Product> optProd = productRepo.findById(4);
+		if (optProd.isPresent()) {
+			product = optProd.get();
+		}
+		else {
+			fail("prodid not found");
+		}
+	
+		product.setDescr("Τυρί Τρικαλινό Ελαφρύ σε Φέτες ΦΑΓΕTE");
+
+		ProductForm prodform = new ProductForm(product);
 		try {
 			productRepo.addOrUpdateProduct(prodform);
 		} catch (DataException e) {

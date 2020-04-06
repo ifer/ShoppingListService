@@ -7,6 +7,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema shopping
 -- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `shopping` ;
 
 -- -----------------------------------------------------
 -- Schema shopping
@@ -19,7 +20,7 @@ USE `shopping` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `shopping`.`category` (
   `catid` INT NOT NULL AUTO_INCREMENT,
-  `descr` VARCHAR(80) NOT NULL,
+  `descr` VARCHAR(80) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL,
   PRIMARY KEY (`catid`))
 ENGINE = InnoDB;
 
@@ -29,7 +30,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `shopping`.`product` (
   `prodid` INT NOT NULL AUTO_INCREMENT,
-  `descr` VARCHAR(120) CHARACTER SET 'DEFAULT' NOT NULL,
+  `descr` VARCHAR(120) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL,
   `catid` INT NOT NULL,
   PRIMARY KEY (`prodid`, `descr`),
   INDEX `fk_product_category_idx` (`catid` ASC) VISIBLE,
@@ -42,14 +43,14 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `shopping`.`list`
+-- Table `shopping`.`shoplist`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `shopping`.`list` (
-  `lid` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `shopping`.`shoplist` (
+  `listid` INT NOT NULL AUTO_INCREMENT,
   `comment` VARCHAR(200) NULL,
   `amount` INT NOT NULL,
   `prodid` INT NOT NULL,
-  PRIMARY KEY (`lid`),
+  PRIMARY KEY (`listid`),
   INDEX `fk_list_product1_idx` (`prodid` ASC) VISIBLE,
   CONSTRAINT `fk_list_product1`
     FOREIGN KEY (`prodid`)

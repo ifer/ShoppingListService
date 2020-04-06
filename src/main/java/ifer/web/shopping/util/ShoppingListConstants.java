@@ -11,6 +11,7 @@ public class ShoppingListConstants {
 	public static final String CategoryIdNotFound = "Δεν βρέθηκε κατηγορία με id: " ;
 	public static final String ProductIdNotFound = "Δεν βρέθηκε προϊόν με id: " ;
 	public static final String ProdCatIdNotFound = "Το προϊόν δεν ανήκει σε κατηγορία!" ;
-	public static final String ListIdNotFound = "Δεν βρέθηκε λίστα με id: " ;
+	public static final String ShoplistIdNotFound = "Δεν βρέθηκε λίστα με id: " ;
+//	public static final String ProdCatIdNotFound = "Το προϊόν δεν ανήκει σε κατηγορία!" ;
 		
 }

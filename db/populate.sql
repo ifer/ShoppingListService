@@ -1,3 +1,10 @@
+SET FOREIGN_KEY_CHECKS = 0;
+truncate table shoplist;
+truncate table product;
+truncate table category;
+SET FOREIGN_KEY_CHECKS = 1;
+
+
 insert into category values (null, 'Τρόφιμα');
 insert into category values (null, 'Είδη καθαριότητας');
 
@@ -9,7 +16,8 @@ insert into product values (null, 'AJAX για τζάμια', 2);
 insert into product values (null, 'AJAX Chloron', 2);
 insert into product values (null, 'Σακούλες Απορριμμάτων Ultra Strong Μεγάλες Sanitas (52x75cm)', 2);
 
-insert into list values (null, null, 1, 1);
-insert into list values (null, null, 3, 2);
-insert into list values (null, null, 1, 5);
-insert into list values (null, null, 2, 6);
+
+insert into shoplist values (null, null, 1, 1);
+insert into shoplist values (null, null, 3, 2);
+insert into shoplist values (null, null, 1, 5);
+insert into shoplist values (null, null, 2, 6);
