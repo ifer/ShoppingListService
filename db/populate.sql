@@ -21,3 +21,5 @@ insert into shoplist values (null, null, 1, 1);
 insert into shoplist values (null, null, 3, 2);
 insert into shoplist values (null, null, 1, 5);
 insert into shoplist values (null, null, 2, 6);
+
+insert into `user` values(null, 'ifer', 'lGrjiDtLeoHfUSjoBo2n3bK4+ohQnk1V', 'ROLE_USER,ROLE_ADMIN', 0);

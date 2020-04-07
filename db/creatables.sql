@@ -60,6 +60,21 @@ CREATE TABLE IF NOT EXISTS `shopping`.`shoplist` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `shopping`.`user`
+-- -----------------------------------------------------
+
+CREATE TABLE `user` (
+  `userid` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `passwdhash` varchar(100) NOT NULL,
+  `roles` varchar(80) DEFAULT NULL,
+  `version` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`userid`),
+  UNIQUE KEY `nameidx` (`name`)
+);
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
