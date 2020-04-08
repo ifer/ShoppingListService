@@ -48,7 +48,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `shopping`.`shoplist` (
   `listid` INT NOT NULL AUTO_INCREMENT,
   `comment` VARCHAR(200) NULL,
-  `amount` INT NOT NULL,
+  `quantity` INT NOT NULL,
   `prodid` INT NOT NULL,
   PRIMARY KEY (`listid`),
   INDEX `fk_list_product1_idx` (`prodid` ASC) VISIBLE,

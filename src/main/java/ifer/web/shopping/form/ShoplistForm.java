@@ -7,7 +7,7 @@ public class ShoplistForm {
 
 	private Integer prodid;
 	
-	private Integer amount;
+	private Integer quantity;
 	
 	private String comment;
 	
@@ -20,19 +20,24 @@ public class ShoplistForm {
 
 
 
-	public ShoplistForm(Integer listid, Integer prodid, Integer amount, String comment) {
+
+	public ShoplistForm(Integer listid, Integer prodid, Integer quantity, String comment) {
+		super();
 		this.listid = listid;
-		this.amount = amount;
-		this.comment = comment;
 		this.prodid = prodid;
+		this.quantity = quantity;
+		this.comment = comment;
 	}
+
+
+
 
 	//Constructor based on Shoplist
 	public ShoplistForm(Shoplist shoplist) {
 		this (
 			shoplist.getListid(),
 			shoplist.getProduct().getProdid(),
-			shoplist.getAmount(),
+			shoplist.getQuantity(),
 			shoplist.getComment()
 		);
 		
@@ -47,7 +52,7 @@ public class ShoplistForm {
 			shoplist = new Shoplist();
 		}
 		shoplist.setListid(this.getListid());
-		shoplist.setAmount(this.getAmount());
+		shoplist.setQuantity(this.getQuantity());
 		shoplist.setComment(this.getComment());
 		
 		return shoplist;
@@ -61,18 +66,6 @@ public class ShoplistForm {
 
 	public void setListid(Integer listid) {
 		this.listid = listid;
-	}
-
-
-
-	public Integer getAmount() {
-		return amount;
-	}
-
-
-
-	public void setAmount(Integer amount) {
-		this.amount = amount;
 	}
 
 
@@ -97,6 +90,20 @@ public class ShoplistForm {
 
 	public void setProdid(Integer prodid) {
 		this.prodid = prodid;
+	}
+
+
+
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+
+
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
     
   

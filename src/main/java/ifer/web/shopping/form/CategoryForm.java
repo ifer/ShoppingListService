@@ -8,8 +8,13 @@ public class CategoryForm {
 	
 	
 	
+	public CategoryForm() {
+		
+	}
+
+
 	public CategoryForm(Integer catid, String descr) {
-		super();
+		
 		this.catid = catid;
 		this.descr = descr;
 	}
