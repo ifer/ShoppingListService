@@ -1,7 +1,7 @@
 select * from category;
 select * from product;
 
-select l.listid, p.descr, c.descr, l.amount, l.comment from shoplist l, product p, category c 
-where p.catid = c.catid and l.prodid = p.prodid;
+select i.itemid, p.descr, c.descr, i.quantity, i.comment from shopitem i, product p, category c 
+where p.catid = c.catid and i.prodid = p.prodid;
 
 select * from user;

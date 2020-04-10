@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ifer.web.shopping.db.Category;
 import ifer.web.shopping.db.Product;
-import ifer.web.shopping.db.Shoplist;
+import ifer.web.shopping.db.Shopitem;
 import ifer.web.shopping.form.CategoryForm;
 import ifer.web.shopping.form.ProductForm;
-import ifer.web.shopping.form.ShoplistForm;
+import ifer.web.shopping.form.ShopitemForm;
 import ifer.web.shopping.repo.CategoryRepo;
 import ifer.web.shopping.repo.ProductRepo;
-import ifer.web.shopping.repo.ShoplistRepo;
+import ifer.web.shopping.repo.ShopitemRepo;
 import ifer.web.shopping.util.DataException;
 
 
@@ -30,7 +30,7 @@ public class ShoppingListController {
 	@Autowired
 	private ProductRepo productRepo;
 	@Autowired
-	private ShoplistRepo shoplistRepo;
+	private ShopitemRepo shopitemRepo;
 	@Autowired
 	private CategoryRepo categoryRepo;
 	
@@ -144,29 +144,29 @@ public class ShoppingListController {
 		
 	}	
   	
-  	@RequestMapping(method=RequestMethod.GET, value = "/api/shoplist")
-  	public Shoplist getShoplistById (@RequestParam("id") int listid){
-  		Shoplist shoplist = shoplistRepo.findByListid(listid);
-  		return shoplist;
+  	@RequestMapping(method=RequestMethod.GET, value = "/api/shopitem")
+  	public Shopitem getShopitemById (@RequestParam("id") int itemid){
+  		Shopitem shopitem = shopitemRepo.findByItemid(itemid);
+  		return shopitem;
   	}
   	
-  	@RequestMapping(method=RequestMethod.GET, value = "/api/shoplistlist")
-  	public List<ShoplistForm> getShoplistList (){
-		List<Shoplist> shoplistList = shoplistRepo.findAll();
-		List<ShoplistForm> shoplistformList = new ArrayList<ShoplistForm>();
-		for (Shoplist sl : shoplistList) {
-			ShoplistForm slf = new ShoplistForm(sl);
-			shoplistformList.add(slf);
+  	@RequestMapping(method=RequestMethod.GET, value = "/api/shopitemlist")
+  	public List<ShopitemForm> getShopitemList (){
+		List<Shopitem> shopitemList = shopitemRepo.findAll();
+		List<ShopitemForm> shopitemformList = new ArrayList<ShopitemForm>();
+		for (Shopitem si : shopitemList) {
+			ShopitemForm sif = new ShopitemForm(si);
+			shopitemformList.add(sif);
 		}
-		return shoplistformList;
+		return shopitemformList;
   	}
 
 
-	@RequestMapping(method = RequestMethod.POST, value = "/api/updateshoplist")
-	public  ResponseMessage addOrUpdateShoplist (@RequestBody ShoplistForm shoplistform) {
-		Shoplist shoplist = null;
+	@RequestMapping(method = RequestMethod.POST, value = "/api/updateshopitem")
+	public  ResponseMessage addOrUpdateShopitem (@RequestBody ShopitemForm shopitemform) {
+		Shopitem shopitem = null;
 		try {
-			shoplist = shoplistRepo.addOrUpdateShoplist(shoplistform);
+			shopitem = shopitemRepo.addOrUpdateShopitem (shopitemform);
 		} catch (DataException e) {
 			return (new ResponseMessage (-1, e.getLocalizedMessage()));
 		} catch (Exception e) {
@@ -174,19 +174,18 @@ public class ShoppingListController {
 			return (new ResponseMessage (-1, e.getLocalizedMessage()));
 		}		
 		
-		if (shoplist != null){
-			return (new ResponseMessage (0, "OK", String.valueOf(shoplist.getListid())));
+		if (shopitem != null){
+			return (new ResponseMessage (0, "OK", String.valueOf(shopitem.getItemid())));
 		}
 		else
 			return (new ResponseMessage (-1, "UKNOWN ERROR"));
 	
 	}  	
   	
-	@RequestMapping(method = RequestMethod.POST, value = "/api/delshoplist")
-	public  ResponseMessage deleteShoplist (@RequestBody ShoplistForm slform) {
-//		Shoplist shoplist = null;
+	@RequestMapping(method = RequestMethod.POST, value = "/api/delshopitem")
+	public  ResponseMessage deleteShopitem (@RequestBody ShopitemForm siform) {
 		try {
-			shoplistRepo.deleteShoplist(slform.getListid());
+			shopitemRepo.deleteShopitem(siform.getItemid());
 		} catch (DataException e) {
 			return (new ResponseMessage (-1, e.getLocalizedMessage()));
 		} catch (Exception e) {

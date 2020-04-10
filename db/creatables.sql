@@ -5,6 +5,9 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
+-- Schema default_schema
+-- -----------------------------------------------------
+-- -----------------------------------------------------
 -- Schema shopping
 -- -----------------------------------------------------
 DROP SCHEMA IF EXISTS `shopping` ;
@@ -20,7 +23,7 @@ USE `shopping` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `shopping`.`category` (
   `catid` INT NOT NULL AUTO_INCREMENT,
-  `descr` VARCHAR(80) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL,
+  `descr` VARCHAR(80) CHARACTER SET 'utf8' NOT NULL,
   PRIMARY KEY (`catid`))
 ENGINE = InnoDB;
 
@@ -30,7 +33,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `shopping`.`product` (
   `prodid` INT NOT NULL AUTO_INCREMENT,
-  `descr` VARCHAR(120) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL,
+  `descr` VARCHAR(120) CHARACTER SET 'utf8' NOT NULL,
   `catid` INT NOT NULL,
   PRIMARY KEY (`prodid`, `descr`),
   INDEX `fk_product_category_idx` (`catid` ASC) VISIBLE,
@@ -43,14 +46,14 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `shopping`.`shoplist`
+-- Table `shopping`.`shopitem`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `shopping`.`shoplist` (
-  `listid` INT NOT NULL AUTO_INCREMENT,
-  `comment` VARCHAR(200) NULL,
+CREATE TABLE IF NOT EXISTS `shopping`.`shopitem` (
+  `itemid` INT NOT NULL AUTO_INCREMENT,
+  `comment` VARCHAR(200) NULL DEFAULT NULL,
   `quantity` INT NOT NULL,
   `prodid` INT NOT NULL,
-  PRIMARY KEY (`listid`),
+  PRIMARY KEY (`itemid`),
   INDEX `fk_list_product1_idx` (`prodid` ASC) VISIBLE,
   CONSTRAINT `fk_list_product1`
     FOREIGN KEY (`prodid`)
@@ -63,16 +66,14 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `shopping`.`user`
 -- -----------------------------------------------------
-
-CREATE TABLE `user` (
-  `userid` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) NOT NULL,
-  `passwdhash` varchar(100) NOT NULL,
-  `roles` varchar(80) DEFAULT NULL,
-  `version` int NOT NULL DEFAULT '0',
+CREATE TABLE IF NOT EXISTS `shopping`.`user` (
+  `userid` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `passwdhash` VARCHAR(100) NOT NULL,
+  `roles` VARCHAR(80) NULL DEFAULT NULL,
+  `version` INT NOT NULL DEFAULT '0',
   PRIMARY KEY (`userid`),
-  UNIQUE KEY `nameidx` (`name`)
-);
+  UNIQUE INDEX `nameidx` (`name` ASC) VISIBLE);
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

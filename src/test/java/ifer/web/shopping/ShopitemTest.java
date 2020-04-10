@@ -13,39 +13,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import ifer.web.shopping.db.Shoplist;
-import ifer.web.shopping.form.ShoplistForm;
+import ifer.web.shopping.db.Shopitem;
+import ifer.web.shopping.form.ShopitemForm;
 import ifer.web.shopping.repo.ProductRepo;
-import ifer.web.shopping.repo.ShoplistRepo;
+import ifer.web.shopping.repo.ShopitemRepo;
 import ifer.web.shopping.util.DataException;
 import ifer.web.shopping.util.ShoppingListConstants;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ShoplistTest {
+public class ShopitemTest {
 	@Autowired
 	private ProductRepo productRepo;
 	@Autowired
-	private ShoplistRepo shoplistRepo;
+	private ShopitemRepo shopitemRepo;
 	
 	@Test
-	public void findByListidTest (){
-		Shoplist shoplist = shoplistRepo.findByListid(1);
-		assertNotNull(shoplist);
+	public void findByItemidTest (){
+		Shopitem shopitem = shopitemRepo.findByItemid(1);
+		assertNotNull(shopitem);
 	}
 	
 	@Test
 	public void findAllTest (){
-		List<Shoplist> shoplist = shoplistRepo.findAll();
-		assertEquals(4, shoplist.size());
+		List<Shopitem> shopitem = shopitemRepo.findAll();
+		assertEquals(4, shopitem.size());
 		
 	}	
 	
 	@Test
-	public void addShoplistTest () {
-		ShoplistForm shopform = new ShoplistForm(null, 3,  2, "All Bran");
+	public void addShopitemTest () {
+		ShopitemForm shopform = new ShopitemForm(null, 3,  2, "All Bran");
 		try {
-			shoplistRepo.addOrUpdateShoplist(shopform);
+			shopitemRepo.addOrUpdateShopitem(shopform);
 		} catch (DataException e) {
 				e.printStackTrace();
 		}
@@ -53,30 +53,30 @@ public class ShoplistTest {
 	}	
 
 	@Test
-	public void updateShoplistTest () {
-		Shoplist shoplist = null;
-		Optional<Shoplist> optShop = shoplistRepo.findById(3);
+	public void updateShopitemTest () {
+		Shopitem shopitem = null;
+		Optional<Shopitem> optShop = shopitemRepo.findById(3);
 		
 		if (optShop.isPresent()) {
-			shoplist = optShop.get();
+			shopitem = optShop.get();
 		}
 		else {
 			fail("Should not have thrown any exception");
 		}
-		shoplist.setComment("AJAX again");
+		shopitem.setComment("AJAX again");
 		
-		ShoplistForm shopform = new ShoplistForm(shoplist);
+		ShopitemForm shopform = new ShopitemForm(shopitem);
 		try {
-			shoplistRepo.addOrUpdateShoplist(shopform);
+			shopitemRepo.addOrUpdateShopitem(shopform);
 		} catch (DataException e) {
 				e.printStackTrace();
 		}
 		
 	}	
 	@Test
-	public void deteteShoplistTest () {
+	public void deteteShopitemTest () {
 		try {
-			shoplistRepo.deleteShoplist(5);
+			shopitemRepo.deleteShopitem(5);
 		} catch (DataException e) {
 				e.printStackTrace();
 		}

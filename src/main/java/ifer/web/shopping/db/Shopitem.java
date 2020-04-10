@@ -9,10 +9,10 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Shoplist implements java.io.Serializable {
+public class Shopitem implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer listid;
+	private Integer itemid;
 
 	private Integer quantity;
 	
@@ -24,7 +24,7 @@ public class Shoplist implements java.io.Serializable {
     
     
 
-	public Shoplist() {
+	public Shopitem() {
 		
 	}
 
@@ -32,9 +32,9 @@ public class Shoplist implements java.io.Serializable {
 
 
 
-	public Shoplist(Integer listid, Integer quantity, String comment, Product product) {
+	public Shopitem(Integer itemid, Integer quantity, String comment, Product product) {
 		super();
-		this.listid = listid;
+		this.itemid = itemid;
 		this.quantity = quantity;
 		this.comment = comment;
 		this.product = product;
@@ -44,12 +44,12 @@ public class Shoplist implements java.io.Serializable {
 
 
 
-	public Integer getListid() {
-		return listid;
+	public Integer getItemid() {
+		return itemid;
 	}
 
-	public void setListid(Integer listid) {
-		this.listid = listid;
+	public void setItemid(Integer itemid) {
+		this.itemid = itemid;
 	}
 
 

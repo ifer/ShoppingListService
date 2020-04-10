@@ -29,7 +29,7 @@ public class Product implements java.io.Serializable {
     
 	@JsonIgnore   //Avoid json the infinite recursion problem 
 	@OneToMany(mappedBy="product")
-	private Set<Shoplist> shoplists = new HashSet<Shoplist>();    
+	private Set<Shopitem> shopitems = new HashSet<Shopitem>();    
 
 	
 	public Product() {
