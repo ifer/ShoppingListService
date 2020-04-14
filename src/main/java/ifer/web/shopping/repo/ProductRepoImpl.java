@@ -23,22 +23,23 @@ public class ProductRepoImpl implements ProductRepoCustom {
 	public Product addOrUpdateProduct(ProductForm prodform) throws DataException {
 		Product product;
 		
+		if (prodform.getCatid() == null) {
+			throw new DataException (ShoppingListConstants.ProdCatIdNotFound);
+		}
+
 		if (prodform.getProdid() == null || prodform.getProdid() == 0){
-			if (prodform.getCatid() == null) {
-				throw new DataException (ShoppingListConstants.ProdCatIdNotFound);
-			}
 			
-			Category category;
-			Optional<Category> optCat = categoryRepo.findById(prodform.getCatid());
-			if (optCat.isPresent()) {
-				category = optCat.get();
-			}
-			else {
-				throw new DataException (ShoppingListConstants.CategoryIdNotFound + " " + prodform.getCatid());
-			}
+//			Category category;
+//			Optional<Category> optCat = categoryRepo.findById(prodform.getCatid());
+//			if (optCat.isPresent()) {
+//				category = optCat.get();
+//			}
+//			else {
+//				throw new DataException (ShoppingListConstants.CategoryIdNotFound + " " + prodform.getCatid());
+//			}
 			
+		
 			product = new Product();
-			product.setCategory(category);
 		}
 		else {
 			Optional<Product> optProd = productRepo.findById(prodform.getProdid());
@@ -52,6 +53,8 @@ public class ProductRepoImpl implements ProductRepoCustom {
 
 
 		product = prodform.toProduct(product);
+		Category category = getCategoryById(prodform.getCatid());
+		product.setCategory(category);
 		
 		product = productRepo.save(product);
 		
@@ -72,6 +75,19 @@ public class ProductRepoImpl implements ProductRepoCustom {
 		productRepo.delete(product);
 		
 		
+	}
+	
+	private Category getCategoryById(int catid)  throws DataException {
+		Category category;
+		Optional<Category> optCat = categoryRepo.findById(catid);
+		if (optCat.isPresent()) {
+			category = optCat.get();
+		}
+		else {
+			throw new DataException (ShoppingListConstants.CategoryIdNotFound + " " + catid);
+		}
+	
+		return (category);
 	}
 
 }

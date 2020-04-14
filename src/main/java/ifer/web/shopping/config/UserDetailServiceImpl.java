@@ -43,7 +43,7 @@ public class UserDetailServiceImpl implements UserDetailsService  {
     	
     	String decrypted = encryptor.decrypt(curruser.getPasswdhash()) ;
     	
- 	
+// System.out.println("decrypted:" + decrypted);	
     	//Keyword {noop} is needed for Spring Security >= 5 to specify that the password is decrypred
         UserDetails user = new org.springframework.security.core.userdetails.User(username, "{noop}" + decrypted, true, 
         		true, true, true, AuthorityUtils.commaSeparatedStringToAuthorityList(curruser.getRoles()));        
