@@ -3,6 +3,7 @@ package ifer.web.shopping.db;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Version;// default package
 // Generated Apr 29, 2017 8:55:17 PM by Hibernate Tools 4.3.1
@@ -15,7 +16,7 @@ import javax.validation.constraints.NotNull;
 public class User implements java.io.Serializable {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer userid;
 	
 	@NotNull
