@@ -43,7 +43,7 @@ public class ShopitemTest {
 	
 	@Test
 	public void addShopitemTest () {
-		ShopitemForm shopform = new ShopitemForm(null, 3,  2, "All Bran");
+		ShopitemForm shopform = new ShopitemForm(null, 3,  "2", "All Bran");
 		try {
 			shopitemRepo.addOrUpdateShopitem(shopform);
 		} catch (DataException e) {

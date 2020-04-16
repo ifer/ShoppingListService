@@ -7,7 +7,7 @@ public class ShopitemForm {
 
 	private Integer prodid;
 	
-	private Integer quantity;
+	private String quantity;
 	
 	private String comment;
 	
@@ -21,7 +21,7 @@ public class ShopitemForm {
 
 
 
-	public ShopitemForm(Integer itemid, Integer prodid, Integer quantity, String comment) {
+	public ShopitemForm(Integer itemid, Integer prodid, String quantity, String comment) {
 		super();
 		this.itemid = itemid;
 		this.prodid = prodid;
@@ -95,18 +95,21 @@ public class ShopitemForm {
 
 
 
-	public Integer getQuantity() {
+	public String getQuantity() {
 		return quantity;
 	}
 
 
 
 
-	public void setQuantity(Integer quantity) {
+	public void setQuantity(String quantity) {
 		this.quantity = quantity;
 	}
-    
-  
+
+
+
+
+
 	
     
 }

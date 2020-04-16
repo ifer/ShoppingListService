@@ -14,7 +14,7 @@ public class Shopitem implements java.io.Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer itemid;
 
-	private Integer quantity;
+	private String quantity;
 	
 	private String comment;
 	
@@ -32,7 +32,7 @@ public class Shopitem implements java.io.Serializable {
 
 
 
-	public Shopitem(Integer itemid, Integer quantity, String comment, Product product) {
+	public Shopitem(Integer itemid, String quantity, String comment, Product product) {
 		super();
 		this.itemid = itemid;
 		this.quantity = quantity;
@@ -71,14 +71,21 @@ public class Shopitem implements java.io.Serializable {
 	}
 
 
-	public Integer getQuantity() {
+
+
+
+	public String getQuantity() {
 		return quantity;
 	}
 
 
-	public void setQuantity(Integer quantity) {
+
+
+
+	public void setQuantity(String quantity) {
 		this.quantity = quantity;
 	}
-	
-    
+
+
+
 }
