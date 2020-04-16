@@ -1,5 +1,6 @@
 package ifer.web.shopping.repo;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,15 @@ public class ShopitemRepoImpl implements ShopitemRepoCustom {
 		shopitem = shopitemRepo.save(shopitem);
 		
 		return (shopitem);	
+	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public void addShopitemList (List<ShopitemForm> shopitemsList) throws DataException {
+		
+		for (ShopitemForm sf :  shopitemsList) {
+			this.addOrUpdateShopitem(sf);
+		}
+		
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -81,6 +82,25 @@ public class ShopitemTest {
 				e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void addShopitemListTest () {
+		
+		List sfList = new ArrayList<ShopitemForm>();
+		
+		for (int i=0; i<3; i++) {
+			ShopitemForm shopform = new  ShopitemForm(null, i+1,  "2", "item " + (i+1));
+			sfList.add(shopform);
+		}
+
+		
+		try {
+			shopitemRepo.addShopitemList(sfList);
+		} catch (DataException e) {
+				e.printStackTrace();
+		}
+		
+	}	
 		
 	
 }

@@ -212,6 +212,23 @@ public class ShoppingListController {
 		return (new ResponseMessage (0, "OK"));
 		
 	}	
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/api/addshopitemlist")
+	public  ResponseMessage addShopitemList (@RequestBody List<ShopitemForm> shopitemList) {
+		Shopitem shopitem = null;
+		try {
+			shopitemRepo.addShopitemList (shopitemList);
+		} catch (DataException e) {
+			return (new ResponseMessage (-1, e.getLocalizedMessage()));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return (new ResponseMessage (-1, e.getLocalizedMessage()));
+		}		
+		
+		return (new ResponseMessage (0, "OK", String.valueOf(shopitemList.size())));
+	
+	}  	
+
   	
 	 @RequestMapping(value="/api/currentuserdata", method = RequestMethod.GET)
 	  public @ResponseBody CurrentUserForm getCurrentUserData() {
