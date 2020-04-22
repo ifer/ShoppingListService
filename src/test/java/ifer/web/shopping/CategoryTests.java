@@ -75,7 +75,7 @@ public class CategoryTests {
 	@Test
 	public void deteteCategoryTest () {
 		try {
-			categoryRepo.deleteCategory(3);
+			categoryRepo.deleteCategory(1);
 		} catch (DataException e) {
 				e.printStackTrace();
 		}

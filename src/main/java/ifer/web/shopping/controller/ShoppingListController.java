@@ -29,6 +29,7 @@ import ifer.web.shopping.form.CategoryForm;
 import ifer.web.shopping.form.CurrentUserForm;
 import ifer.web.shopping.form.ProductForm;
 import ifer.web.shopping.form.ShopitemForm;
+import ifer.web.shopping.form.ShopitemPrintForm;
 import ifer.web.shopping.form.UserForm;
 import ifer.web.shopping.repo.CategoryRepo;
 import ifer.web.shopping.repo.ProductRepo;
@@ -176,8 +177,52 @@ public class ShoppingListController {
 		}
 		return shopitemformList;
   	}
+  	
+	  	@RequestMapping(method=RequestMethod.GET, value = "/api/shopitemprintlist")
+	  	public List<ShopitemPrintForm> getShopitemPrintList (){
+	  			List<Shopitem> shopitemList = shopitemRepo.findShopitemPrintList();
+	  			List<ShopitemPrintForm> spfList = new ArrayList<ShopitemPrintForm>();
+	
+	  			for (Shopitem si : shopitemList) {
+	  				ShopitemPrintForm spf = new ShopitemPrintForm();
+	  				spf.setProductName(si.getProduct().getDescr());
+	  				spf.setCategoryName(si.getProduct().getCategory().getDescr());
+	  				spf.setQuantity(si.getQuantity());
+	  				
+	  				spfList.add(spf);
+	  			}
+	  			
+	  			
+	  			return (spfList);
+	  	}
 
-
+//  	@RequestMapping(method=RequestMethod.GET, value = "/api/shopitemprintlist")
+//  	public List<ShopitemPrintForm> getShopitemPrintList (){
+//  			List<Shopitem> shopitemList = shopitemRepo.findShopitemPrintList();
+//  			List<ShopitemPrintForm> spfList = new ArrayList<ShopitemPrintForm>();
+//
+//  			String prevCategory = "";
+//  			for (Shopitem si : shopitemList) {
+//  				ShopitemPrintForm spf = new ShopitemPrintForm();
+//  				if (! si.getProduct().getCategory().getDescr().equals(prevCategory)){
+//  					spf.setCategoryName(si.getProduct().getCategory().getDescr());
+//  					spfList.add(spf);
+//  					prevCategory = si.getProduct().getCategory().getDescr();
+//  					spf = new ShopitemPrintForm();
+//  				}
+//				spf.setProductName(si.getProduct().getDescr());
+//  				spf.setCategoryName(si.getProduct().getCategory().getDescr());
+//  				spf.setQuantity(si.getQuantity());
+//				prevCategory = si.getProduct().getCategory().getDescr();
+// 				
+//  				spfList.add(spf);
+//  			}
+//  			
+//  			
+//  			return (spfList);
+//  	}
+	
+  	
 	@RequestMapping(method = RequestMethod.POST, value = "/api/updateshopitem")
 	public  ResponseMessage addOrUpdateShopitem (@RequestBody ShopitemForm shopitemform) {
 		Shopitem shopitem = null;
@@ -215,7 +260,6 @@ public class ShoppingListController {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/api/addshopitemlist")
 	public  ResponseMessage addShopitemList (@RequestBody List<ShopitemForm> shopitemList) {
-		Shopitem shopitem = null;
 		try {
 			shopitemRepo.addShopitemList (shopitemList);
 		} catch (DataException e) {
@@ -229,9 +273,35 @@ public class ShoppingListController {
 	
 	}  	
 
-  	
-	 @RequestMapping(value="/api/currentuserdata", method = RequestMethod.GET)
-	  public @ResponseBody CurrentUserForm getCurrentUserData() {
+	@RequestMapping(method = RequestMethod.POST, value = "/api/delshopitemlist")
+	public  ResponseMessage deleteShopitemList (@RequestBody List<ShopitemForm> shopitemList) {
+		try {
+			shopitemRepo.deleteShopitemList (shopitemList);
+		} catch (DataException e) {
+			return (new ResponseMessage (-1, e.getLocalizedMessage()));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return (new ResponseMessage (-1, e.getLocalizedMessage()));
+		}		
+		
+		return (new ResponseMessage (0, "OK", String.valueOf(shopitemList.size())));
+	
+	}  	
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/api/delallshopitems")
+	public  ResponseMessage deleteAllShopitems () {
+		try {
+			shopitemRepo.deleteAll ();
+		} catch (Exception e) {
+			return (new ResponseMessage (-1, e.getLocalizedMessage()));
+		}		
+		
+		return (new ResponseMessage (0, "OK", null));
+	
+	}  
+	
+	@RequestMapping(value="/api/currentuserdata", method = RequestMethod.GET)
+	public @ResponseBody CurrentUserForm getCurrentUserData() {
 
 	      Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	      

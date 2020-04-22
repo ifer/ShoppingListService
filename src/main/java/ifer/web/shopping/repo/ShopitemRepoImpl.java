@@ -84,5 +84,13 @@ public class ShopitemRepoImpl implements ShopitemRepoCustom {
 		
 	}
 
+	@Transactional(rollbackFor = Exception.class)
+	public void deleteShopitemList (List<ShopitemForm> shopitemsList) throws DataException {
+		
+		for (ShopitemForm sf :  shopitemsList) {
+			this.deleteShopitem(sf.getItemid());
+		}
+		
+	}
 
 }

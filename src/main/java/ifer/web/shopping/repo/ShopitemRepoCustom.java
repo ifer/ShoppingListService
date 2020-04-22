@@ -12,4 +12,6 @@ public interface ShopitemRepoCustom {
 	public Shopitem addOrUpdateShopitem (ShopitemForm shopitemform) throws DataException;
 	public void deleteShopitem (Integer itemid) throws DataException;
 	public void addShopitemList (List<ShopitemForm> shopitemsList) throws DataException;
+	public void deleteShopitemList (List<ShopitemForm> shopitemsList) throws DataException;
+	
 }

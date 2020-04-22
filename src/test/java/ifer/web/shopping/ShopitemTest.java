@@ -102,5 +102,37 @@ public class ShopitemTest {
 		
 	}	
 		
-	
+	@Test
+	public void deleteShopitemListTest () {
+		
+		List sfList = new ArrayList<ShopitemForm>();
+		
+		for (int i=0; i<3; i++) {
+			ShopitemForm shopform = new  ShopitemForm(6+i, i+1,  "2", "item " + (i+1));
+			sfList.add(shopform);
+		}
+
+		
+		try {
+			shopitemRepo.deleteShopitemList(sfList);
+		} catch (DataException e) {
+				e.printStackTrace();
+		}
+		
+	}		
+
+	@Test
+	public void findShopitemListTest() {
+		 List<Shopitem> silist = shopitemRepo.findShopitemPrintList();
+		 assertEquals(46, silist.size());
+		 for (int i=0; i<silist.size(); i++) {
+			 Shopitem si = silist.get(i);
+			 
+			 System.out.printf ("%-60s %-40s %s\n", si.getProduct().getDescr(),
+					                          si.getProduct().getCategory().getDescr(),
+					                          si.getQuantity());
+//			 System.out.println(silist.get(i));
+		 }
+	}
+
 }
