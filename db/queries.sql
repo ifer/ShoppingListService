@@ -7,3 +7,10 @@ where p.catid = c.catid and i.prodid = p.prodid  order by c.descr;
 select count(*) from shopitem;
 
 select * from user;
+
+select p.prodid, p.descr, c.catid, c.descr, s.quantity
+from product as p
+inner join category as c on p.catid = c.catid
+left join shopitem as s on s.prodid = p.prodid;
+
+

@@ -2,6 +2,7 @@ package ifer.web.shopping.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +29,7 @@ import ifer.web.shopping.db.User;
 import ifer.web.shopping.form.CategoryForm;
 import ifer.web.shopping.form.CurrentUserForm;
 import ifer.web.shopping.form.ProductForm;
+import ifer.web.shopping.form.ShopitemEditForm;
 import ifer.web.shopping.form.ShopitemForm;
 import ifer.web.shopping.form.ShopitemPrintForm;
 import ifer.web.shopping.form.UserForm;
@@ -178,50 +180,51 @@ public class ShoppingListController {
 		return shopitemformList;
   	}
   	
-	  	@RequestMapping(method=RequestMethod.GET, value = "/api/shopitemprintlist")
-	  	public List<ShopitemPrintForm> getShopitemPrintList (){
-	  			List<Shopitem> shopitemList = shopitemRepo.findShopitemPrintList();
-	  			List<ShopitemPrintForm> spfList = new ArrayList<ShopitemPrintForm>();
-	
-	  			for (Shopitem si : shopitemList) {
-	  				ShopitemPrintForm spf = new ShopitemPrintForm();
-	  				spf.setProductName(si.getProduct().getDescr());
-	  				spf.setCategoryName(si.getProduct().getCategory().getDescr());
-	  				spf.setQuantity(si.getQuantity());
-	  				
-	  				spfList.add(spf);
-	  			}
-	  			
-	  			
-	  			return (spfList);
-	  	}
+  	@RequestMapping(method=RequestMethod.GET, value = "/api/shopitemprintlist")
+  	public List<ShopitemPrintForm> getShopitemPrintList (){
+  			List<Shopitem> shopitemList = shopitemRepo.findShopitemPrintList();
+  			List<ShopitemPrintForm> spfList = new ArrayList<ShopitemPrintForm>();
 
-//  	@RequestMapping(method=RequestMethod.GET, value = "/api/shopitemprintlist")
-//  	public List<ShopitemPrintForm> getShopitemPrintList (){
-//  			List<Shopitem> shopitemList = shopitemRepo.findShopitemPrintList();
-//  			List<ShopitemPrintForm> spfList = new ArrayList<ShopitemPrintForm>();
-//
-//  			String prevCategory = "";
-//  			for (Shopitem si : shopitemList) {
-//  				ShopitemPrintForm spf = new ShopitemPrintForm();
-//  				if (! si.getProduct().getCategory().getDescr().equals(prevCategory)){
-//  					spf.setCategoryName(si.getProduct().getCategory().getDescr());
-//  					spfList.add(spf);
-//  					prevCategory = si.getProduct().getCategory().getDescr();
-//  					spf = new ShopitemPrintForm();
-//  				}
-//				spf.setProductName(si.getProduct().getDescr());
-//  				spf.setCategoryName(si.getProduct().getCategory().getDescr());
-//  				spf.setQuantity(si.getQuantity());
-//				prevCategory = si.getProduct().getCategory().getDescr();
-// 				
-//  				spfList.add(spf);
-//  			}
-//  			
-//  			
-//  			return (spfList);
-//  	}
-	
+  			for (Shopitem si : shopitemList) {
+  				ShopitemPrintForm spf = new ShopitemPrintForm();
+  				spf.setProductName(si.getProduct().getDescr());
+  				spf.setCategoryName(si.getProduct().getCategory().getDescr());
+  				spf.setQuantity(si.getQuantity());
+  				
+  				spfList.add(spf);
+  			}
+  			
+  			
+  			return (spfList);
+  	}
+
+  	@RequestMapping(method=RequestMethod.GET, value = "/api/shopitemeditlist")
+  	public List<ShopitemEditForm> getShopitemEditList (){
+  			List<Map> mapList = shopitemRepo.findShopitemEditList();
+  			List<ShopitemEditForm> sefList = new ArrayList<ShopitemEditForm>();
+
+  			for (Map m : mapList) {
+  				ShopitemEditForm spe = new ShopitemEditForm();
+  				spe.setProdid((Integer)m.get("prodid"));
+  				spe.setProductName((String)m.get("productName"));
+  				spe.setCatid((Integer)m.get("catid"));
+  				spe.setCategoryName((String)m.get("CategoryName"));
+  				spe.setQuantity((String)m.get("quantity"));
+  				if (spe.getQuantity() != null) {
+  					spe.setSelected(true);
+  				}
+  				else {
+  					spe.setSelected(false);
+  				}
+  					
+  				
+  				sefList.add(spe);
+  			}
+  			
+  			
+  			return (sefList);
+  	}
+
   	
 	@RequestMapping(method = RequestMethod.POST, value = "/api/updateshopitem")
 	public  ResponseMessage addOrUpdateShopitem (@RequestBody ShopitemForm shopitemform) {
@@ -270,9 +273,23 @@ public class ShoppingListController {
 		}		
 		
 		return (new ResponseMessage (0, "OK", String.valueOf(shopitemList.size())));
-	
 	}  	
 
+	@RequestMapping(method = RequestMethod.POST, value = "/api/replaceshopitemlist")
+	public  ResponseMessage replaceShopitemList (@RequestBody List<ShopitemForm> shopitemList) {
+		try {
+			shopitemRepo.deleteAll ();
+			shopitemRepo.addShopitemList (shopitemList);
+		} catch (DataException e) {
+			return (new ResponseMessage (-1, e.getLocalizedMessage()));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return (new ResponseMessage (-1, e.getLocalizedMessage()));
+		}		
+		
+		return (new ResponseMessage (0, "OK", String.valueOf(shopitemList.size())));
+	}  	
+	
 	@RequestMapping(method = RequestMethod.POST, value = "/api/delshopitemlist")
 	public  ResponseMessage deleteShopitemList (@RequestBody List<ShopitemForm> shopitemList) {
 		try {
@@ -403,7 +420,28 @@ public class ShoppingListController {
 		}
 		return (new ResponseMessage (0, "OK"));
 		
-	} 			
+	} 	
 	
+  	@RequestMapping(method=RequestMethod.GET, value = "/api/userexists")
+  	public ResponseMessage existsUser (@RequestParam("name") String username){
+  		User user = userRepo.findByName(username);
+		if (user != null)
+			return (new ResponseMessage (0, "USER EXISTS"));
+		else
+			return (new ResponseMessage (-1, "USER NOT EXISTING"));  		
+  	}
+	
+	 @RequestMapping(value="/api/username", method = RequestMethod.GET)
+	 public @ResponseBody ResponseMessage getUsername() {
+
+	      Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	      String username = auth.getName(); //get logged in username
+	     
+	      
+	      return (new ResponseMessage (0, username));
+	  
+	      
+
+	 }		
 	
 }

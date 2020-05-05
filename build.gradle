@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'ifer.web'
-version = '1.0'
+version = '1.1'
 sourceCompatibility = '1.8'
 
 configurations {
@@ -31,6 +31,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	
+	
 	// https://mvnrepository.com/artifact/org.jasypt/jasypt
 	implementation group: 'org.jasypt', name: 'jasypt', version: '1.9.3'
 	// https://mvnrepository.com/artifact/org.jasypt/jasypt-spring31
@@ -50,6 +51,12 @@ dependencies {
 	implementation group: 'log4j', name: 'log4j', version: '1.2.17'
 
 	implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.11'	
+	
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'	
+	testCompileOnly 'junit:junit:4.12'
+	testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.3.1'	
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'	
 	
 //	runtimeOnly 'mysql:mysql-connector-java'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {

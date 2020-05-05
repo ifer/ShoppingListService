@@ -1,6 +1,7 @@
 package ifer.web.shopping.repo;
 
 import java.util.List;
+import java.util.Map;
 
 import ifer.web.shopping.db.Product;
 import ifer.web.shopping.db.Shopitem;
